@@ -1,4 +1,3 @@
-/* *INDENT-OFF* */
 // Copyright 2015-2016 Espressif Systems (Shanghai) PTE LTD
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +24,7 @@ extern "C"
 #define LCD_CMD_LEV   (0)
 #define LCD_DATA_LEV  (1)
 
-typedef void *i2s_lcd_handle_t;  /** Handle of i2s lcd driver */
+typedef void * i2s_lcd_handle_t; /** Handle of i2s lcd driver */
 
 /**
  * @brief Configuration of i2s lcd mode
@@ -88,9 +87,22 @@ esp_err_t i2s_lcd_write_data(i2s_lcd_handle_t handle, uint16_t data);
 esp_err_t i2s_lcd_write_cmd(i2s_lcd_handle_t handle, uint16_t cmd);
 
 /**
+ * @brief Write a command to LCD
+ *
+ * @param handle Handle of i2s lcd driver
+ * @param cmd command to write
+ * @param length length of command
+ *
+ * @return
+ *      - ESP_OK on success
+ *      - ESP_ERR_INVALID_ARG handle is invalid
+ */
+esp_err_t i2s_lcd_write_command(i2s_lcd_handle_t handle, const uint8_t *cmd, uint32_t length);
+
+/**
  * @brief Write block data to LCD
  *
- * @param handle  Handle of i2s lcd driver
+ * @param handle Handle of i2s lcd driver
  * @param data Pointer of data
  * @param length length of data
  *
@@ -103,30 +115,30 @@ esp_err_t i2s_lcd_write(i2s_lcd_handle_t handle, const uint8_t *data, uint32_t l
 /**
  * @brief acquire a lock
  *
- * @param handle  Handle of i2s lcd driver
+ * @param handle Handle of i2s lcd driver
  *
  * @return Always return ESP_OK
  */
 esp_err_t i2s_lcd_acquire(i2s_lcd_handle_t handle);
 
 /**
- * @brief acquire a lock, but only wait a certain period of time
- *
- * @param handle  Handle of i2s lcd driver
- *
- * @return true if the lock was acquired, false otherwise
- */
-bool i2s_lcd_acquire_nonblocking(i2s_lcd_handle_t handle, TickType_t ticks_to_wait);
-
-/**
  * @brief release a lock
  *
- * @param handle  Handle of i2s lcd driver
+ * @param handle Handle of i2s lcd driver
  *
  * @return Always return ESP_OK
  */
 esp_err_t i2s_lcd_release(i2s_lcd_handle_t handle);
 
+/**
+ * @brief acquire a lock, but only wait a certain period of time
+ *
+ * @param handle Handle of i2s lcd driver
+ * @param ticks_to_wait waiting period
+ *
+ * @return  True if lock acquired, false otherwise
+ */
+bool i2s_lcd_acquire_nonblocking(i2s_lcd_handle_t handle, TickType_t ticks_to_wait);
 
 #ifdef __cplusplus
 }

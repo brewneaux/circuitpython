@@ -231,6 +231,12 @@ ifeq ($(IDF_TARGET),esp32s2)
 SRC_C += \
 	i2s_lcd_esp32s2_driver.c
 endif
+ifeq ($(IDF_TARGET),esp32s3)
+SRC_C += \
+	8080_lcd_esp32s3.c \
+	peripherals/pcnt.c \
+	peripherals/touch.c
+endif
 endif
 
 ifeq ($(IDF_TARGET),esp32c3)
@@ -239,6 +245,7 @@ SRC_C += \
 endif
 
 $(BUILD)/i2s_lcd_esp32s2_driver.o: CFLAGS += -Wno-sign-compare
+$(BUILD)/8080_lcd_esp32s3.o: CFLAGS += -Wno-sign-compare
 
 ifneq ($(CIRCUITPY_USB),0)
 SRC_C += lib/tinyusb/src/portable/espressif/esp32sx/dcd_esp32sx.c
